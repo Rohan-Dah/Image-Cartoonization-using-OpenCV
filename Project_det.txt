@@ -1,0 +1,74 @@
+Started off with two libraries: 
+1) Numpy: Matrix operations get simpler
+2) OpenCV: Use of computer vision
+
+Line 5: 
+Creating a camera instance which means here we will be initating the camera
+
+K means:
+When data is being fed it is divided into different clusters.. Consider things like a pyramid of three colors.
+Three colors can be stored in three different clusters; one for an individual color. Cluster can also be called as a data center (for red, for purple etc)
+K here is the total number of centers, in this case wich is three.
+
+Firstly the image, the frame is recieved in Uend format. We have to convert into float.
+
+Criteria in CV:
+You will be iterating through the image, until you find the exact data centes. Consider the avbove example of color triangle. You have three colors so you will be iteraing through the image until you find the exact color you want to find and put it into that cluster. 
+Here we have:
+    cv.TERM_CRITERIA_EPS: Stop the algorithm iteration if specified accuracy, epison is reached. 
+
+    Consider line 19:
+    here accuracy is defiend as 0.9. This means when the accuracy for that algo is almost 90% (90% of data is accurate, stop the iteration)
+
+    cv.TERM_CRITERIA_MAX_ITER: Stop the algo iter after specfic number of iterations, max_iter
+
+    Consider line 19:
+    here max iterations is defined as 3 which means if this particular number for iteration is reached, stop the algorithm.
+
+    cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER (which is being used in the project):
+    Stop the iteration when any of the above condition is met.
+
+What we are doing in our algo is making sure any one fo the criteria is met (max_iter or accuracy). This after meeting up the criteria jump onto mext frame or the results might end up lagging (if you gave a hell lot of iterations).
+
+Determining number of clusters:
+As we discussed in the color triangle example, we need to decide total number fo clusters or data centers, which we are choosing as 9.
+
+kmeans function:
+kmeans(data, K, bestLabels, criteria, attempts, flags[, centers]) -> retval, bestLabels, centers
+
+Initialization of Cluster Centers:
+We have determined how many clusters we need to have but where should they be in a particular frame, that is what happens to be the issue now. So we have two criteraia for choosing that:
+KMEANS_RANDOM_CENTERS (that which we have used now):
+Creating random data centers
+KMEANS_++CENTER (Other way to determine the data center )
+
+Here we have z data ready as frames in float, K that is the number of centers, Criteria: Defied earlier as meet accuracy or reach x amount of iterations, attempts: How many attempts will you need for the best label when it comes iterating through an image. Centers: We decided those randomly. 
+
+Now after we have images, and centers what we have to do is all the pixels revolving that color must be summed up into one color in itself
+
+On line 25:
+All the center we got from the data as we are choosing the centes randomly, we are converting them into integers. All of the data center must be in x,y(2, 4) coordinate form as we wont be able to deal with float x and y (2.4, 4.6).
+This is what is applied to the image on line 26 as flatten function.
+The new image is again shaped and stored in res2 as it is on line 27.
+
+Then, on line 30 we have just increased the intensity of the image for more clear output.
+
+On line 32:
+We are showing using imshow
+
+
+Types of ML algos:
+1) Supervised:
+    Here we give in the data and we are ones who want to match it to the labels
+2) Unsupervised
+    Clusters are formed on the basis of behaviour just like kmeans.
+3) Reinforced learning
+    
+
+
+
+
+
+
+ 
+
